@@ -1,0 +1,20 @@
+.box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card {
+  background: url("../images/card.png") no-repeat;
+  background-size: 100%;
+  width: 100px;
+  height: 150px;
+  margin-top: 25px;
+  margin-right: 15px;
+}
+/*# sourceMappingURL=style.css.map */

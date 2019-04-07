@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>memory-game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+
+<body>
+    <div class="container-fuild text-center row justify-content-center ">
+
+        <div class="border border-success box" style="width:500px;height:500px;">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var card = document.getElementsByClassName("card");
+        var arr = [];
+        var value1 = "";
+        var value2 = "";
+        get();
+
+        function get() {
+            var a = Math.floor(Math.random() * 8);
+            if (arr.indexOf(a) == -1) {
+                arr.push(a);
+            }
+            if (arr.length == 8) {
+                return;
+            } else {
+                get();
+            }
+        }
+        for (var i = 1; i <= card.length / 2; i++) {
+
+            $(card[arr[i - 1]]).addClass("card-" + i);
+            $(card[arr[arr.length - i]]).addClass("card-" + i);
+
+        }
+
+
+        $(".card-1").on('click', function () {
+            $(this).css({
+                "background-image": "url(images/1.png)"
+            });
+
+            if (value1 == "") {
+                value1 = $(this).attr('class');
+                return;
+            }
+            if (value1 != "") {
+                value2 = $(this).attr('class');
+            }
+            if (value1 != "" && value2 != "") {
+                var setT = setTimeout(function () {
+                    if (value1 == value2) {
+                        value1 = "";
+                        value2 = "";
+                        $(".card-1").css({
+                            "background-image": "none"
+                        })
+                    } else {
+                        clean();
+                    }
+
+                }, 1000);
+            }
+
+        });
+        $(".card-2").on('click', function () {
+            $(this).css({
+                "background-image": "url(images/5.png)"
+            });
+            if (value1 == "") {
+                value1 = $(this).attr('class');
+                return;
+            }
+            if (value1 != "") {
+                value2 = $(this).attr('class');
+            }
+            if (value1 != "" && value2 != "") {
+                var setT = setTimeout(function () {
+                    if (value1 == value2) {
+                        value1 = "";
+                        value2 = "";
+                        $(".card-2").css({
+                            "background-image": "none"
+                        })
+                    } else {
+                        clean();
+                    }
+
+                }, 1000);
+            }
+
+
+        });
+        $(".card-3").on('click', function () {
+            $(this).css({
+                "background-image": "url(images/8.png)"
+            });
+            if (value1 == "") {
+                value1 = $(this).attr('class');
+                return;
+            }
+            if (value1 != "") {
+                value2 = $(this).attr('class');
+            }
+            if (value1 != "" && value2 != "") {
+                var setT = setTimeout(function () {
+                    if (value1 == value2) {
+                        value1 = "";
+                        value2 = "";
+                        $(".card-3").css({
+                            "background-image": "none"
+                        })
+                    } else {
+                        clean();
+                    }
+
+                }, 1000);
+            }
+
+        });
+        $(".card-4").on('click', function () {
+            $(this).css({
+                "background-image": "url(images/10.png)"
+            });
+            if (value1 == "") {
+                value1 = $(this).attr('class');
+                return;
+            }
+            if (value1 != "") {
+                value2 = $(this).attr('class');
+            }
+            if (value1 != "" && value2 != "") {
+                var setT = setTimeout(function () {
+                    if (value1 == value2) {
+                        value1 = "";
+                        value2 = "";
+                        $(".card-4").css({
+                            "background-image": "none"
+                        })
+                    } else {
+                        clean();
+                    }
+
+                }, 1000);
+            }
+
+        });
+
+        function clean() {
+            value1 = "";
+            value2 = "";
+
+            for (var i = 0; i < card.length; i++) {
+
+                if ($(card[i]).css('background-image') != "none") {
+                    console.log($(card[i]).css('background'))
+                    $(card[i]).css({
+                        "background": "url('../images/card.png') no-repeat",
+                        "background-size": "100%"
+                    })
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
