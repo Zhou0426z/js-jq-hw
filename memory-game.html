@@ -92,10 +92,11 @@
                 value2 = $(this).attr('class');
             }
             if (value1 != "" && value2 != "") {
+                value1 = "";
+                value2 = "";
+
                 var setT = setTimeout(function () {
                     if (value1 == value2) {
-                        value1 = "";
-                        value2 = "";
                         $(".card-2").css({
                             "background-image": "none"
                         })
