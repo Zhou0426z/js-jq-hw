@@ -52,6 +52,7 @@
         var hasBeenChooseArr = [];
         var index = 0;
         var randomNumber;
+        var randomNumber1;
         $("#max").change(function () {
             max = parseInt($("#max").val());
             hasBeenChooseArr = [];
@@ -81,9 +82,9 @@
         }
 
         function getRandom2() {
-            var randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
+            randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
             if (hasBeenChooseArr.indexOf(randomNumber1) == -1) {
-                return randomNumber1;
+                return;
             } else {
                 getRandom2();
             }
@@ -93,8 +94,7 @@
         function ani() {
             getRandom();
             var times = 0;
-            var r1 = getRandom2();
-            $("#post").html(r1);
+            $("#post").html(randomNumber1);
 
             var setT = setInterval(function () {
 
@@ -104,9 +104,12 @@
                 })
                 px += 50;
                 if (px > 750) {
-
-                    r1 = getRandom2();
-                    $("#post").html(r1);
+                    if (hasBeenChooseArr.length == (max - min + 1)) {
+                        randomNumber1 = randomNumber;
+                    } else {
+                        getRandom2();
+                    }
+                    $("#post").html(randomNumber1);
                     px = -20;
                     times += 1;
                 }
