@@ -29,7 +29,9 @@
             </div>
         </div>
         <div class="border border-secondary box mt-3 mb-3 text-center"
-            style="font-size: 300px;line-height: 300px; width:400px;height:400px;" id="post"></div>
+            style="font-size: 300px;line-height: 300px; width:400px;height:400px; overflow: hidden; position: relative;">
+            <div id="post" style=" text-align: center;"></div>
+        </div>
         <button type="button" class="btn btn-primary" id="goChoose">選數字</button>
         <div id="hasNumber">已猜過的數字:</div>
     </div>
@@ -49,6 +51,7 @@
         var max, min;
         var hasBeenChooseArr = [];
         var index = 0;
+        var randomNumber;
         $("#max").change(function () {
             max = parseInt($("#max").val());
             hasBeenChooseArr = [];
@@ -64,20 +67,63 @@
                 return;
             }
             if (max != undefined && min != undefined) {
-                getRandom();
+                ani();
             }
         })
 
         function getRandom() {
-            var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
             if (hasBeenChooseArr.indexOf(randomNumber) == -1) {
                 hasBeenChooseArr.push(randomNumber);
-                $("#post").html(randomNumber);
-                var text = "已猜過的數字:" + hasBeenChooseArr.join('、');
-                $("#hasNumber").html(text);
             } else {
                 getRandom();
             }
+        }
+
+        function getRandom2() {
+            var randomNumber1 = Math.floor(Math.random() * (max - min + 1)) + min;
+            if (hasBeenChooseArr.indexOf(randomNumber1) == -1) {
+                return randomNumber1;
+            } else {
+                getRandom2();
+            }
+        }
+        var px = -20;
+
+        function ani() {
+            getRandom();
+            var times = 0;
+            var r1 = getRandom2();
+            $("#post").html(r1);
+
+            var setT = setInterval(function () {
+
+                $("#post").css({
+                    "position": "absolute",
+                    "right": px + "px",
+                })
+                px += 50;
+                if (px > 750) {
+
+                    r1 = getRandom2();
+                    $("#post").html(r1);
+                    px = -20;
+                    times += 1;
+                }
+                if (times == 3) {
+                    clearInterval(setT);
+                    $("#post").html(randomNumber);
+                    var text = "已猜過的數字:" + hasBeenChooseArr.join('、');
+                    $("#hasNumber").html(text);
+
+                    $("#post").css({
+                        "position": "static",
+                    })
+                }
+                console.log(hasBeenChooseArr);
+            }, 80);
+
+
         }
     </script>
 </body>
