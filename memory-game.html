@@ -51,7 +51,7 @@
 
         }
 
-
+        $('.card').on('click', judgeEnd);
         $(".card-1").on('click', function () {
             $(this).css({
                 "background-image": "url(images/1.png)"
@@ -92,11 +92,13 @@
                 value2 = $(this).attr('class');
             }
             if (value1 != "" && value2 != "") {
-                value1 = "";
-                value2 = "";
 
                 var setT = setTimeout(function () {
+
                     if (value1 == value2) {
+                        value1 = "";
+                        value2 = "";
+
                         $(".card-2").css({
                             "background-image": "none"
                         })
@@ -177,6 +179,18 @@
                         "background-size": "100%"
                     })
                 }
+            }
+        }
+
+        function judgeEnd() {
+            var count = 0;
+            for (var i = 1; i <= card.length / 2; i++) {
+                if ($(".card-" + i).css('backgound-image') == 'none') {
+                    count += 2;
+                }
+            }
+            if (count == card.length) {
+                alert('完成');
             }
         }
     </script>

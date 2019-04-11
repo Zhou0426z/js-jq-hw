@@ -13,6 +13,8 @@
     <title>puzzle</title>
     <style>
         #puzzle {
+            margin-top: 40px;
+            margin-left: 15px;
             width: 400px;
             height: 400px;
         }
@@ -28,7 +30,13 @@
 
 <body>
     <div class="container-fuild row justify-content-center">
-        <div id="puzzle"></div>
+        <div>
+            <img src="images/images.jpg" alt="#" style="width:400px;height:400px; margin-top:40px">
+        </div>
+        <div>
+            <div id="puzzle"></div>
+
+        </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -49,10 +57,13 @@
                 $("#puzzle").append(text);
                 var row = Math.floor(i / 4);
                 var col = i % 4;;
-                $('#part-' + i + " img").css('margin-left', col * -120 -20).css('margin-top', row * -120);
+                $('#part-' + i + " img").css('margin-left', col * -120 - 20).css('margin-top', row * -120);
             }
             $("#part-0 img").remove();
         });
+        function judgment(){
+              
+        }
     </script>
 </body>
 
