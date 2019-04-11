@@ -13,7 +13,7 @@
     <title>puzzle</title>
     <style>
         #puzzle {
-            margin-top: 40px;
+            margin-top: 12px;
             margin-left: 15px;
             width: 400px;
             height: 400px;
@@ -30,10 +30,13 @@
 
 <body>
     <div class="container-fuild row justify-content-center">
+
         <div>
             <img src="images/images.jpg" alt="#" style="width:400px;height:400px; margin-top:40px">
         </div>
         <div>
+            <input type="button" value="搗亂一波" id="goRandom">
+
             <div id="puzzle"></div>
 
         </div>
@@ -52,17 +55,83 @@
     <script>
         $(function () {
             for (var i = 0; i < 16; i++) {
-                var text = "<div class='puzzle-part border border-warning' id='part-" + i + "'" +
-                    "><img src='images/images.jpg'></div>"
-                $("#puzzle").append(text);
+                var $img = $('<img>');
+                $img.attr('src', 'images/images.jpg');
+
+                var $div = $('<div></div>');
+                $div.addClass('puzzle-part border border-warning')
+                    .attr('id', 'part-' + i)
+                    .append($img);
+
+                $("#puzzle").append($div);
                 var row = Math.floor(i / 4);
                 var col = i % 4;;
-                $('#part-' + i + " img").css('margin-left', col * -120 - 20).css('margin-top', row * -120);
+                $('#part-' + i + " img").css('margin-left', col * -100).css('margin-top', row * -100);
+
             }
             $("#part-0 img").remove();
         });
-        function judgment(){
-              
+
+        $('#puzzle').on('click', '.puzzle-part', function () {
+            var $this = $(this);
+            var $part0 = $('#part-0');
+            var $index0 = $('#puzzle > div').index($part0);
+            var $indexValue = $('#puzzle > div').index($this);
+            var $div = $('#puzzle div');
+
+            var emptyPointRow = $index0 % 4;
+            var emptyPointCol = Math.floor($index0 / 4);
+
+            var row = $indexValue % 4;
+            var col = Math.floor($indexValue / 4);
+
+            if (row - emptyPointRow == 0 && col - emptyPointCol == 1) {
+                //白在上
+
+                $($div.eq($index0 + 1)).before($this);
+                $($div.eq($index0 + 3)).after($('#part-0'));
+
+            }
+            if (row - emptyPointRow == 0 && col - emptyPointCol == -1) {
+                //白在下
+                $($div.eq($index0 - 1)).after($this);
+                $($div.eq($index0 - 3)).before($('#part-0'));
+
+            }
+            if (row - emptyPointRow == 1 && col - emptyPointCol == 0) {
+                //白在左
+                $($div.eq($index0 + 1)).after($('#part-0'));
+
+            }
+            if (row - emptyPointRow == -1 && col - emptyPointCol == 0) {
+                //白在右
+                $($div.eq($index0 - 1)).before($('#part-0'));
+
+            }
+            judgementFinsh();
+        });
+
+        $('#goRandom').on('click', getRandom);
+
+        function judgementFinsh() {
+            var $div = $('#puzzle div');
+
+            for (var i = 0; i < $div.length; i++) {
+                if ($div.eq(i).attr('id') != 'part-' + i) {
+                    return;
+                }
+            }
+            alert('完成');
+        }
+
+        function getRandom() {
+            var $div = $('#puzzle div');
+
+            for (var i = 0; i < 300; i++) {
+                var r1 = Math.floor(Math.random() * 16);
+                var r2 = Math.floor(Math.random() * 16);
+                $div.eq(r1).after($div.eq(r2));
+            }
         }
     </script>
 </body>
