@@ -51,7 +51,7 @@
 
         }
 
-        $('.card').on('click', judgeEnd);
+        $('.box').on('click', '.card', judgeEnd);
         $(".card-1").on('click', function () {
             $(this).css({
                 "background-image": "url(images/1.png)"
@@ -183,15 +183,14 @@
         }
 
         function judgeEnd() {
+            var $card = $('.box > div');
             var count = 0;
-            for (var i = 1; i <= card.length / 2; i++) {
-                if ($(".card-" + i).css('backgound-image') == 'none') {
-                    count += 2;
+            for (var i = 0; i <= card.length; i++) {
+                if ($card.eq(i).css('background-image') != 'none') {
+                    return;
                 }
             }
-            if (count == card.length) {
-                alert('完成');
-            }
+            alert('完成');
         }
     </script>
 </body>
