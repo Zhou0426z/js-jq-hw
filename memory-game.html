@@ -13,184 +13,109 @@
 
 <body>
     <div class="container-fuild text-center row justify-content-center ">
-
-        <div class="border border-success box" style="width:500px;height:500px;">
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
+        <div class="border border-success box" style="width:500px;height:500px;" id="cardList">
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        var card = document.getElementsByClassName("card");
-        var arr = [];
-        var value1 = "";
-        var value2 = "";
-        get();
+        var $cardList = $('#cardList');
+        var randomArr = [];
+        var clickCount = 0;
+        var valueIndex = null;
 
-        function get() {
-            var a = Math.floor(Math.random() * 8);
-            if (arr.indexOf(a) == -1) {
-                arr.push(a);
-            }
-            if (arr.length == 8) {
-                return;
-            } else {
-                get();
-            }
+        var table = {
+            0: 'url(images/1.png)',
+            1: 'url(images/1.png)',
+            2: 'url(images/5.png)',
+            3: 'url(images/5.png)',
+            4: 'url(images/8.png)',
+            5: 'url(images/8.png)',
+            6: 'url(images/10.png)',
+            7: 'url(images/10.png)',
+        };
+
+        for (var i = 0; i < 8; i++) {
+            var $div = $('<div></div>');
+            $div.addClass('card')
+                .css({
+                    'background-image': "url('images/card.png')",
+                    'background-size': '100%'
+                })
+                .appendTo($cardList);
         }
-        for (var i = 1; i <= card.length / 2; i++) {
 
-            $(card[arr[i - 1]]).addClass("card-" + i);
-            $(card[arr[arr.length - i]]).addClass("card-" + i);
-
-        }
-
-        $('.box').on('click', '.card', judgeEnd);
-        $(".card-1").on('click', function () {
-            $(this).css({
-                "background-image": "url(images/1.png)"
-            });
-
-            if (value1 == "") {
-                value1 = $(this).attr('class');
-                return;
-            }
-            if (value1 != "") {
-                value2 = $(this).attr('class');
-            }
-            if (value1 != "" && value2 != "") {
-                var setT = setTimeout(function () {
-                    if (value1 == value2) {
-                        value1 = "";
-                        value2 = "";
-                        $(".card-1").css({
-                            "background-image": "none"
-                        })
-                    } else {
-                        clean();
-                    }
-
-                }, 1000);
-            }
-
-        });
-        $(".card-2").on('click', function () {
-            $(this).css({
-                "background-image": "url(images/5.png)"
-            });
-            if (value1 == "") {
-                value1 = $(this).attr('class');
-                return;
-            }
-            if (value1 != "") {
-                value2 = $(this).attr('class');
-            }
-            if (value1 != "" && value2 != "") {
-
-                var setT = setTimeout(function () {
-
-                    if (value1 == value2) {
-                        value1 = "";
-                        value2 = "";
-
-                        $(".card-2").css({
-                            "background-image": "none"
-                        })
-                    } else {
-                        clean();
-                    }
-
-                }, 1000);
-            }
-
-
-        });
-        $(".card-3").on('click', function () {
-            $(this).css({
-                "background-image": "url(images/8.png)"
-            });
-            if (value1 == "") {
-                value1 = $(this).attr('class');
-                return;
-            }
-            if (value1 != "") {
-                value2 = $(this).attr('class');
-            }
-            if (value1 != "" && value2 != "") {
-                var setT = setTimeout(function () {
-                    if (value1 == value2) {
-                        value1 = "";
-                        value2 = "";
-                        $(".card-3").css({
-                            "background-image": "none"
-                        })
-                    } else {
-                        clean();
-                    }
-
-                }, 1000);
-            }
-
-        });
-        $(".card-4").on('click', function () {
-            $(this).css({
-                "background-image": "url(images/10.png)"
-            });
-            if (value1 == "") {
-                value1 = $(this).attr('class');
-                return;
-            }
-            if (value1 != "") {
-                value2 = $(this).attr('class');
-            }
-            if (value1 != "" && value2 != "") {
-                var setT = setTimeout(function () {
-                    if (value1 == value2) {
-                        value1 = "";
-                        value2 = "";
-                        $(".card-4").css({
-                            "background-image": "none"
-                        })
-                    } else {
-                        clean();
-                    }
-
-                }, 1000);
-            }
-
-        });
-
-        function clean() {
-            value1 = "";
-            value2 = "";
-
-            for (var i = 0; i < card.length; i++) {
-
-                if ($(card[i]).css('background-image') != "none") {
-                    console.log($(card[i]).css('background'))
-                    $(card[i]).css({
-                        "background": "url('../images/card.png') no-repeat",
-                        "background-size": "100%"
-                    })
+        function getRandom() {
+            while (randomArr.length < 8) {
+                var random = Math.floor(Math.random() * 8);
+                if (randomArr.indexOf(random) == -1) {
+                    randomArr.push(random);
                 }
             }
         }
 
-        function judgeEnd() {
-            var $card = $('.box > div');
-            var count = 0;
-            for (var i = 0; i <= card.length; i++) {
-                if ($card.eq(i).css('background-image') != 'none') {
+        getRandom();
+
+        $cardList.on('click', '.card', function () {
+            var $this = $(this);
+
+            if ($this.css('background-image') == 'none') {
+                return;
+            }
+
+            var $index = $('#cardList div').index($this);
+            clickCount++;
+            if (clickCount > 2) {
+                return;
+            }
+            $this.css({
+                'background-image': table[randomArr[$index]]
+            });
+            if (clickCount == 1) {
+                valueIndex = $index;
+                return;
+            }
+            var setT = setTimeout(function () {
+                var thisBackground = $this.css('background-image');
+                var valueBackground = $('#cardList div').eq(valueIndex).css('background-image');
+                if (thisBackground == valueBackground) {
+                    $this.css('background-image', 'none');
+                    $('#cardList div').eq(valueIndex).css('background-image', 'none');
+                }
+
+                cleanAndJudgeEnd();
+                clickCount = 0;
+            }, 800);
+        });
+
+        function cleanAndJudgeEnd() {
+            var $card = $('.card');
+
+            for (var i = 0; i < $card.length; i++) {
+
+                if ($($card[i]).css('background-image') != "none") {
+                    $($card[i]).css({
+                        "background-image": "url('./images/card.png')"
+                    });
+                }
+            }
+            for (var i = 0; i < $card.length; i++) {
+                if ($($card[i]).css('background-image') != "none") {
                     return;
                 }
             }
-            alert('完成');
+            alert("過關囉,即將開始新遊戲");
+            restart();
+        }
+
+        function restart() {
+            $('.card').css('background-image', "url('images/card.png')");
+            randomArr = [];
+            clickCount = 0;
+            valueIndex = null;
+            getRandom();
+
+
+
         }
     </script>
 </body>
