@@ -22,7 +22,6 @@
         var randomArr = [];
         var clickCount = 0;
         var valueIndex = null;
-
         var table = {
             0: 'url(images/1.png)',
             1: 'url(images/1.png)',
@@ -61,8 +60,11 @@
             if ($this.css('background-image') == 'none') {
                 return;
             }
-
             var $index = $('#cardList div').index($this);
+
+            if ($index == valueIndex) {
+                return;
+            }
             clickCount++;
             if (clickCount > 2) {
                 return;
@@ -84,6 +86,7 @@
 
                 cleanAndJudgeEnd();
                 clickCount = 0;
+                valueIndex = null;
             }, 800);
         });
 
